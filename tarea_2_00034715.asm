@@ -43,12 +43,15 @@
         mov     bx, 0000h ;limpiando var
         mov     cx, 0000h ;limpio para la variable que afecta el loop
         mov     cx, 11d ;la cantidad de veces (las estimaciones) que se ejecutará el loop
-        mov     al, 2
-        mov     bl, 2 ;ya se se incrementa en dos
-        mov     si, 0 ;iniciando la variable que hará que se mueva en las celdas de memoria
+        mov     ax, 2d ;la base por la que multiplicaré
+        mov     bx, 2d ;el valor por el que incrementaré
+        mov     si, 0d ;iniciando la variable que hará que se mueva en las celdas de memoria
 
-dupli:  MUL     bl
-        mov     [210h+si], ax
+dupli:  MUL     bx
+        cmp     ax, 0100h
+        jbe     condicion
+        INC     si
+condicion       mov     [210h+si], ax
         INC     si
         loop    dupli
         
