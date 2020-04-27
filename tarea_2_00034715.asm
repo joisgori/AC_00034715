@@ -3,7 +3,16 @@
 
         org     100h
 
-        mov     ax, 554Fh
-        mov     [200h], ax;
+        mov     al, 3h
+        mov     bl, 4h
+        ADD     al, bl
+        mov     bl, 7h
+        ADD     al, bl
+        mov     bl, 1h
+        ADD     al, bl
+        mov     bl, 5h
+        ADD     al, bl
+
+        ;mov     [200h], ax;
 
         int     20h
