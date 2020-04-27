@@ -51,8 +51,27 @@ dupli:  MUL     bx
         cmp     ax, 0100h
         jbe     condicion
         INC     si
-condicion       mov     [210h+si], ax
+condicion       mov     [210h+si], ax ;sino se cumplía esta condición, necesito incrementar en dos el movimiento de celdas
         INC     si
         loop    dupli
-        
+
+        ;Ejercicio 3, fibonacci
+
+	mov	cx, 0000h
+	mov	si, 0d
+	mov	cx, 0013d
+	mov	ax, 0d
+	mov	bx, 1d
+	mov	[di+220h], ax
+	inc	di
+	mov	[di+220h], bx
+	inc	di
+
+fibonacci:	mov	dx, bx
+	add	bx, ax
+	mov	[di+220h], bx
+	mov	ax, dx
+	inc	di
+	loop	fibonacci
+
         int     20h
