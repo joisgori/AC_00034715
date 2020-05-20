@@ -7,6 +7,7 @@ section .text
 	call 	phrase
         call    fraseDos
         call    fraseTres
+        call    fraseCuatro
 	call	kbwait
 
 	int 	20h
@@ -18,14 +19,14 @@ texto:	mov 	ah, 00h
 
 cursor: mov     ah, 01h
         mov 	ch, 00000000b
-        mov 	cl, 00001111b
+        mov 	cl, 00001110b
         int 	10h
         ret
 
 w_char:	mov 	ah, 09h
         mov 	al, cl
         mov 	bh, 0h
-        mov 	bl, 00001111b
+        mov 	bl, [210h+si]
         mov 	cx, 1h
         int 	10h
         ret
@@ -48,6 +49,9 @@ phrase:	mov 	di, 0d
         mov     cl, 0d ;La fila donde quiero comenzar
         mov     si, 0d ;puntero que servirá para buscar el valor almacenado en una memoria de 200 y que mantendrá la escritura allí
         mov     [200h], cl ;Asigno la fila de inicio a esa celda
+        ;Para darle color a cada frase la misma lógica:
+        mov     cl, 00001001b   ;Agrego el color
+        mov     [210h], cl      ;Lo mando a un espacio de memoria
 lupi:	mov 	cl, [msg+di-0d]
         call    m_cursr
         call 	w_char
@@ -60,6 +64,9 @@ fraseDos:	mov 	di, 15d
                 mov     cl, 5d ;La fila donde quiero comenzar
                 mov     si, 1d ;puntero que servirá para buscar el valor almacenado en una memoria de 200 y que mantendrá la escritura allí
                 mov     [201h], cl ;Asigno la fila de inicio a esa celda
+                ;Para darle color a cada frase la misma lógica:
+                mov     cl, 00001100b   ;Agrego el color
+                mov     [211h], cl      ;Lo mando a un espacio de memoria
 lupiD:	mov 	cl, [msgD+di-15d]
         call    m_cursr
         call 	w_char
@@ -72,6 +79,9 @@ fraseTres:	mov 	di, 7d
                 mov     cl, 11d ;La fila donde quiero comenzar
                 mov     si, 2d ;puntero que servirá para buscar el valor almacenado en una memoria de 200 y que mantendrá la escritura allí
                 mov     [202h], cl ;Asigno la fila de inicio a esa celda
+                ;Para darle color a cada frase la misma lógica:
+                mov     cl, 00001110b   ;Agrego el color
+                mov     [212h], cl      ;Lo mando a un espacio de memoria
 lupiT:	mov 	cl, [msgT+di-7d]
         call    m_cursr
         call 	w_char
@@ -80,12 +90,31 @@ lupiT:	mov 	cl, [msgT+di-7d]
         jb	lupiT
         ret
 
+fraseCuatro:	mov 	di, 11d
+                mov     cl, 20d ;La fila donde quiero comenzar
+                mov     si, 3d ;puntero que servirá para buscar el valor almacenado en una memoria de 200 y que mantendrá la escritura allí
+                mov     [203h], cl ;Asigno la fila de inicio a esa celda
+                ;Para darle color a cada frase la misma lógica:
+                mov     cl, 00000011b   ;Agrego el color CIAN
+                mov     [213h], cl      ;Lo mando a un espacio de memoria
+lupiC:	mov 	cl, [msgC+di-11d]
+        call    m_cursr
+        call 	w_char
+        inc	di
+        cmp 	di, lenC
+        jb	lupiC
+        ret
+
 section .data
-msg	db 	"Seteo en primera columna y fila uno"
+msg	db 	"Buenas buenaaas, quisiera una camiseta de un personaje inspirador" ;No sé porque no escribe todo el mensaje
+                ;creo que ya es muy problema de dosbox
 len 	equ	$-msg+0d
 
-msgD	db 	"Segundo Mensaje"
+msgD	db 	"Gandhi?"
 lenD 	equ	$-msgD+15d
 
-msgT	db 	"Tercer mensaje"
+msgT	db 	"No, Mediani :v"
 lenT 	equ	$-msgT+7d
+
+msgC	db 	"Merezco diez por intentarlo, heeey :c"
+lenC 	equ	$-msgC+11d
