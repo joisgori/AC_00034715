@@ -18,7 +18,7 @@ texto:	mov 	ah, 00h
 
 cursor: mov     ah, 01h
         mov 	ch, 00000000b
-        mov 	cl, 00001110b
+        mov 	cl, 00001111b
         int 	10h
         ret
 
@@ -85,7 +85,7 @@ msg	db 	"Seteo en primera columna y fila uno"
 len 	equ	$-msg+0d
 
 msgD	db 	"Segundo Mensaje"
-lenD 	equ	$-msg+15d
+lenD 	equ	$-msgD+15d
 
 msgT	db 	"Tercer mensaje"
-lenT 	equ	$-msg+7d
+lenT 	equ	$-msgT+7d
