@@ -6,38 +6,69 @@ section .text
 
         ;Línea horizontal superior
 	    xor 	di, di   ; mov di, 0h
-LHS:	mov 	cx, 2d ; Columna 
+LHS:	mov 	cx, 46d ; Columna 
         add	    cx, di	 ; Offset
         mov	    dx, 1d ; Fila
         call 	pixel
         inc 	di
-        cmp 	di, 100d
+        cmp 	di, 61d
         jne 	LHS
 
-        ;Línea horizontal superior duplicada
+        ;Línea horizontal superior duplicada uno
         xor 	di, di   ; mov di, 0h
-LHSD:	mov 	cx, 2d ; Columna 
+LHSDu:	mov 	cx, 46d ; Columna 
         add	    cx, di	 ; Offset
-        mov	    dx, 3d ; Fila
+        mov	    dx, 8d ; Fila
         call 	pixel
         inc 	di
-        cmp 	di, 100d
-        jne 	LHSD
+        cmp 	di, 27d
+        jne 	LHSDu
 
-        ;Línea vertical jota
+        ;Línea horizontal superior duplicada dos
         xor 	di, di   ; mov di, 0h
-LVJ:	mov 	cx, 48d ; Columna 
-        mov	    dx, 3d ; Fila
+LHSDd:	mov 	cx, 80d ; Columna 
+        add	    cx, di	 ; Offset
+        mov	    dx, 8d ; Fila
+        call 	pixel
+        inc 	di
+        cmp 	di, 28d
+        jne 	LHSDd
+
+;Línea vertical cierre de ---
+        xor 	di, di   ; mov di, 0h
+LupiV:	mov 	cx, 46d ; Columna 
+        mov	    dx, 1d ; Fila
         add	    dx, di	 ; Offset
         call 	pixel
         inc 	di
-        cmp 	di, 75d
+        cmp 	di, 7d
+        jne 	LupiV
+
+;Línea vertical cierre de DUPLI---
+        xor 	di, di   ; mov di, 0h
+LupiVD:	mov 	cx, 107d ; Columna 
+        mov	    dx, 1d ; Fila
+        add	    dx, di	 ; Offset
+        call 	pixel
+        inc 	di
+        cmp 	di, 7d
+        jne 	LupiVD
+
+;Inicio del cuerpo de la letra J
+        ;Línea vertical jota
+        xor 	di, di   ; mov di, 0h
+LVJ:	mov 	cx, 73d ; Columna 
+        mov	    dx, 8d ; Fila
+        add	    dx, di	 ; Offset
+        call 	pixel
+        inc 	di
+        cmp 	di, 70d
         jne 	LVJ
 
         ;Línea vertical jota duplicada
         xor 	di, di   ;PONER EN CERO DI
-LVJD:	mov 	cx, 50d ; Columna 
-        mov	    dx, 3d ; Fila
+LVJD:	mov 	cx, 80d ; Columna 
+        mov	    dx, 8d ; Fila
         add	    dx, di	 ; Offset
         call 	pixel
         inc 	di
@@ -47,7 +78,7 @@ LVJD:	mov 	cx, 50d ; Columna
 ;Las horizontales inferiores
         ;Línea horizontal inferior
         xor 	di, di   ;PONER EN CERO DI
-LHI:	mov 	cx, 18d ; Columna 
+LHI:	mov 	cx, 43d ; Columna 
         add	    cx, di	 ; Offset
         mov	    dx, 77d ; Fila
         call 	pixel
@@ -57,28 +88,28 @@ LHI:	mov 	cx, 18d ; Columna
 
         ;Línea horizontal inferior duplicada
         xor 	di, di   ;PONER EN CERO DI
-LHID:	mov 	cx, 16d ; Columna 
+LHID:	mov 	cx, 36d ; Columna 
         add	    cx, di	 ; Offset
-        mov	    dx, 80d ; Fila
+        mov	    dx, 85d ; Fila
         call 	pixel
         inc 	di
-        cmp 	di, 34d
+        cmp 	di, 44d
         jne 	LHID
 
 ;Tres últimas líneas, gancho de la jota
         ;Verticales de gancho
 
         xor 	di, di   ;PONER EN CERO DI
-LVG:	mov 	cx, 16d ; Columna 
+LVG:	mov 	cx, 36d ; Columna 
         mov	    dx, 70d ; Fila
         add	    dx, di	 ; Offset
         call 	pixel
         inc 	di
-        cmp 	di, 10d
+        cmp 	di, 15d
         jne 	LVG
 
         xor 	di, di   ;PONER EN CERO DI
-LVGD:	mov 	cx, 18d ; Columna 
+LVGD:	mov 	cx, 43d ; Columna 
         mov	    dx, 70d ; Fila
         add	    dx, di	 ; Offset
         call 	pixel
@@ -89,12 +120,12 @@ LVGD:	mov 	cx, 18d ; Columna
         ;Línea horizontal de gancho, cierre
 
         xor 	di, di   ;PONER EN CERO DI
-LHG:	mov 	cx, 16d ; Columna 
+LHG:	mov 	cx, 36d ; Columna 
         add	    cx, di	 ; Offset
         mov	    dx, 70d ; Fila
         call 	pixel
         inc 	di
-        cmp 	di, 2d
+        cmp 	di, 7d
         jne 	LHG
 
         call 	kb		; Utilizamos espera de alguna tecla
@@ -107,7 +138,7 @@ grafico:mov	    ah, 00h
         ret
 
 pixel:	mov	    ah, 0Ch
-        mov	    al, 1010b
+        mov	    al, 1100b
         int 	10h
         ret
 
